@@ -1,0 +1,54 @@
+{
+	"title": "kerberos",
+	"description": "kerberos ",
+	"configuration": {
+		"ServerAdmin": "hostmaster@^^domain_name^^",
+		"domain": "^^internal_domain^^",
+		"kdc_domain": "^^internal_domain_in_capitals_or_hand_entered^^"
+	},
+"os_packages": [
+	{
+		"type": "debian",
+		"name": "kerberos"
+	}
+],
+"persistent": [
+	{
+		"type": "dir",
+		"destination": "/etc/krb5kdc/",
+		"source": "/var/lib/containers/^^identifier^^/etc"
+	},	
+	{
+		"type": "dir",
+		"destination": "/var/krb5/",
+		"source": "/var/lib/containers/^^identifier^^/var"
+	}
+],
+	"bindings": [
+		{
+			"type": "connect",
+			"repository": "https://github.com/v2Blueprints/dns",
+			"branch": "hashidocker",
+			"variables": {
+				"hostnames": ["kdc",
+				              "_kerberos-adm._tcp",
+				              "_kerberos-master._udp",
+				              "_kerberos-adm._tcp",
+				              "_kerberos._tcp",
+				              "_kerberos._udp"],
+				"domain": "^^internal_domain^^"
+			}
+		}
+	],
+"images": [
+	{
+		"type": "lxd",
+		"image": "enginesd_debian_base"
+	}
+],
+"containers": [
+	{
+		"type": "lxd"
+	}
+]
+}
