@@ -30,12 +30,41 @@
 			"repository": "https://github.com/v2Blueprints/dns",
 			"branch": "hashidocker",
 			"variables": {
-				"hostnames": ["kdc",
-				              "_kerberos-adm._tcp",
-				              "_kerberos-master._udp",
-				              "_kerberos-adm._tcp",
-				              "_kerberos._tcp",
-				              "_kerberos._udp"],
+				"hostname": "kdc",
+				"domain": "^^internal_domain^^"
+			}
+		},		{
+			"type": "connect",
+			"repository": "https://github.com/v2Blueprints/dns",
+			"branch": "hashidocker",
+			"variables": {
+				"hostname": "_kerberos-adm._tcp",
+				"domain": "^^internal_domain^^"
+			}
+		},		{
+			"type": "connect",
+			"repository": "https://github.com/v2Blueprints/dns",
+			"branch": "hashidocker",
+			"variables": {
+				"hostname": "_kerberos-master._udp",
+				"domain": "^^internal_domain^^"
+			}
+		},
+				{
+			"type": "connect",
+			"repository": "https://github.com/v2Blueprints/dns",
+			"branch": "hashidocker",
+			"variables": {
+				"hostname": "_kerberos._tcp",
+				"domain": "^^internal_domain^^"
+			}
+		},
+				{
+			"type": "connect",
+			"repository": "https://github.com/v2Blueprints/dns",
+			"branch": "hashidocker",
+			"variables": {
+				"hostname": "_kerberos._udp",
 				"domain": "^^internal_domain^^"
 			}
 		}
