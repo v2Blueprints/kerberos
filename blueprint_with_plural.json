@@ -6,59 +6,45 @@
 		"domain": "^^internal_domain^^",
 		"kdc_domain": "^^internal_domain_in_capitals_or_hand_entered^^"
 	},
-"os_packages": [
-	{
-		"type": "debian",
-		"name": "kerberos"
-	}
-],
-"persistent": [
-	{
-		"type": "dir",
-		"destination": "/etc/krb5kdc/",
-		"source": "/var/lib/containers/^^identifier^^/etc"
-	},	
-	{
-		"type": "dir",
-		"destination": "/var/krb5/",
-		"source": "/var/lib/containers/^^identifier^^/var"
-	}
-],
+	"os_packages": [
+		{
+			"type": "debian",
+			"name": "kerberos"
+		}
+	],
+	"persistent": [
+		{
+			"type": "dir",
+			"destination": "/etc/krb5kdc/",
+			"source": "/var/lib/containers/^^identifier^^/etc"
+		},
+		{
+			"type": "dir",
+			"destination": "/var/krb5/",
+			"source": "/var/lib/containers/^^identifier^^/var"
+		}
+	],
 	"bindings": [
 		{
 			"type": "connect",
 			"repository": "https://github.com/v2Blueprints/dns",
 			"branch": "hashidocker",
 			"variables": {
-						"variables": {
-				"hostnames": ["kdc",
-				              "_kerberos-adm._tcp",
-				              "_kerberos-master._udp",
-				              "_kerberos-adm._tcp",
-				              "_kerberos._tcp",
-				              "_kerberos._udp"],
-				"domain": "^^internal_domain^^"
-			}
-		},
-				{
-			"type": "connect",
-			"repository": "https://github.com/v2Blueprints/dns",
-			"branch": "hashidocker",
-			"variables": {
-				"hostname": "_kerberos._tcp",
-				"domain": "^^internal_domain^^"
-			}
-		},
-				{
-			"type": "connect",
-			"repository": "https://github.com/v2Blueprints/dns",
-			"branch": "hashidocker",
-			"variables": {
-				"hostname": "_kerberos._udp",
-				"domain": "^^internal_domain^^"
+				"variables": {
+					"hostnames": [
+						"kdc",
+						"_kerberos-adm._tcp",
+						"_kerberos-master._udp",
+						"_kerberos-adm._tcp",
+						"_kerberos._tcp",
+						"_kerberos._udp"
+					],
+					"domain": "^^internal_domain^^"
+				}
 			}
 		}
-	],"binding_anchor": {
+	],
+	"binding_anchor": {
 		"variables": {
 			"databasename": "^^identifier^^",
 			"username": "^^identifier^^_user",
@@ -79,33 +65,32 @@
 				]
 			},
 			"accepted": [
-					"prefix",
-					"fqdn"
+				"prefix",
+				"fqdn"
 			]
 		},
 		"deletion": {
 			"type": "container_script",
 			"path": "/usr/local/bin/remove_credentials.sh",
-				"required": [
-					"prefix",
-					"fqdn"
-				],
+			"required": [
+				"prefix",
+				"fqdn"
+			],
 			"accepted": [
-					"prefix",
-					"fqdn"
+				"prefix",
+				"fqdn"
 			]
-			
 		}
 	},
-"images": [
-	{
-		"type": "lxd",
-		"image": "enginesd_debian_base"
-	}
-],
-"containers": [
-	{
-		"type": "lxd"
-	}
-]
+	"images": [
+		{
+			"type": "lxd",
+			"image": "enginesd_debian_base"
+		}
+	],
+	"containers": [
+		{
+			"type": "lxd"
+		}
+	]
 }
