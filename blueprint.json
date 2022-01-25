@@ -1,6 +1,8 @@
 {
-	"title": "kerberos",
-	"description": "kerberos ",
+	"about": {
+		"title": "kerberos",
+		"explanation": "kerberos"
+	},
 	"configuration": {
 		"ServerAdmin": "hostmaster@^^domain_name^^",
 		"domain": "^^internal_domain^^",
@@ -13,110 +15,74 @@
 	},
 	"volumes": [
 		{
-			"type": "dir",
 			"destination": "/etc/krb5kdc/",
-			"source": "/var/lib/containers/^^identifier^^/etc"
+			"source": "etc"
 		},
 		{
-			"type": "dir",
 			"destination": "/var/krb5/",
-			"source": "/var/lib/containers/^^identifier^^/var"
+			"source": "var"
 		}
 	],
 	"bindings": [
 		{
-			"type": "connect",
+			"identifier": "kdc",
 			"repository": "https://github.com/v2Blueprints/dns",
-			"branch": "hashidocker",
-			"variables": {
+			"configuration": {
 				"hostname": "kdc",
 				"domain": "^^internal_domain^^"
 			}
 		},
 		{
-			"type": "connect",
+			"identifier": "adm_tcp",
 			"repository": "https://github.com/v2Blueprints/dns",
-			"branch": "hashidocker",
-			"variables": {
+			"configuration": {
 				"hostname": "_kerberos-adm._tcp",
 				"domain": "^^internal_domain^^"
 			}
 		},
 		{
-			"type": "connect",
+			"identifier": "master_udp",
 			"repository": "https://github.com/v2Blueprints/dns",
 			"branch": "hashidocker",
-			"variables": {
+			"configuration": {
 				"hostname": "_kerberos-master._udp",
 				"domain": "^^internal_domain^^"
 			}
 		},
 		{
-			"type": "connect",
+			"identifier": "tcp",
 			"repository": "https://github.com/v2Blueprints/dns",
-			"branch": "hashidocker",
-			"variables": {
+			"configuration": {
 				"hostname": "_kerberos._tcp",
 				"domain": "^^internal_domain^^"
 			}
 		},
 		{
-			"type": "connect",
+			"identifier": "udp",
 			"repository": "https://github.com/v2Blueprints/dns",
-			"branch": "hashidocker",
-			"variables": {
+			"configuration": {
 				"hostname": "_kerberos._udp",
 				"domain": "^^internal_domain^^"
 			}
 		}
 	],
-	"binding_anchor": {
-		"variables": {
-			"databasename": "^^identifier^^",
-			"username": "^^identifier^^_user",
-			"password": "^^random(10)^^",
-			"collation": "utf8_general_ci",
-			"charset": "utf8",
-			"super_user": false,
-			"grant:": false
-		},
-		"strategies": {
-			"addition": {
-				"type": "container_script",
-				"path": "/usr/local/bin/add_credentials.sh",
-				"result": "file",
-				"required": [
-					"prefix",
-					"fqdn"
-				]
-			},
-			"accepted": [
-				"prefix",
-				"fqdn"
-			]
-		},
-		"deletion": {
-			"type": "container_script",
-			"path": "/usr/local/bin/remove_credentials.sh",
-			"required": [
-				"prefix",
-				"fqdn"
-			],
-			"accepted": [
-				"prefix",
-				"fqdn"
-			]
-		}
+	"binding_target": {
+		"databasename": "^^identifier^^",
+		"username": "^^identifier^^_user",
+		"password": "^^random(10)^^",
+		"collation": "utf8_general_ci",
+		"charset": "utf8",
+		"super_user": false,
+		"grant:": false
 	},
 	"images": [
-		{
-			"type": "lxd",
-			"image": "enginesd_debian_base"
-		}
-	],
-	"containers": [
-		{
-			"type": "lxd"
-		}
-	]
+    {
+      "runtimes": [
+        "docker"
+      ],
+      "target": {
+        "repository": "https://github.com/v2Blueprints/enginesd_debian_base"
+      }
+    }
+  ]
 }
