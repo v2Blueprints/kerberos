@@ -8,7 +8,7 @@
 		"domain": "^^internal_domain^^",
 		"kdc_domain": "^^internal_domain_in_capitals_or_hand_entered^^"
 	},
-	"os_packages": {
+	"system_packages": {
 		"adds": [
 			"kerberos"
 		]
